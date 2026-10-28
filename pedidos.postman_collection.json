@@ -1,0 +1,38 @@
+{
+  "info": {
+    "name": "API de Pedidos",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [{ "key": "baseUrl", "value": "http://localhost:3000" }],
+  "item": [
+    {
+      "name": "01 - Criar pedido válido (201)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"cliente\": \"Carlos Silva\",\n  \"tipo\": \"entrega\",\n  \"valor\": 350,\n  \"prioridade\": \"normal\"\n}" },
+        "url": "{{baseUrl}}/pedidos"
+      }
+    },
+    {
+      "name": "02 - Criar pedido inválido (400)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"cliente\": \"   \",\n  \"tipo\": \"entrega\",\n  \"valor\": -10,\n  \"prioridade\": \"normal\"\n}" },
+        "url": "{{baseUrl}}/pedidos"
+      }
+    },
+    { "name": "03 - Listar pedidos (200)", "request": { "method": "GET", "url": "{{baseUrl}}/pedidos" } },
+    { "name": "04 - Consultar pedido inexistente (404)", "request": { "method": "GET", "url": "{{baseUrl}}/pedidos/999" } },
+    {
+      "name": "05 - Atualizar status (200)",
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"status\": \"em_preparacao\"\n}" },
+        "url": "{{baseUrl}}/pedidos/1/status"
+      }
+    }
+  ]
+}
